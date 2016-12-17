@@ -14,7 +14,10 @@ public class StartPanel : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
             CommonElements.instance.ChangeBackground(startPanelSprite);
-	}
+        if (CommonElements.instance.isLoggedIn)
+            LogInButtonMethod();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -26,6 +29,7 @@ public class StartPanel : MonoBehaviour {
     {
         startPanel.SetActive(false);
         yourProfile.SetActive(true);
+        CommonElements.instance.isLoggedIn = true;
         CommonElements.instance.ChangeBackground(yourProfileSprite);
     }
     public void CookingButtonMethon()

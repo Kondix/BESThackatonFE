@@ -14,6 +14,8 @@ public class ImHungry : MonoBehaviour
     InputField inpSearch;
     [SerializeField]
     GameObject offerPrefab;
+
+
     void Start()
     {
         searchToggle[0].isOn = true;
@@ -46,7 +48,7 @@ public class ImHungry : MonoBehaviour
     }
     public void BackBTN()
     {
-
+        SceneManager.LoadScene("MainScene");
     }
     public void SingInBTN()
     {
@@ -56,9 +58,4 @@ public class ImHungry : MonoBehaviour
     {
 
     }
-    public void ChangeScene()
-    {
-        SceneManager.LoadScene("MainScene");
-    }
-
 }

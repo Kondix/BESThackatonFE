@@ -9,12 +9,16 @@ public class CommonElements : MonoBehaviour {
     public GameObject mainUI;
     public GameObject camera;
     public Image backgroundImage;
+    public bool isLoggedIn;
     
 	void Awake() {
         DontDestroyOnLoad(gameObject);
 
         if (!instance)
             instance = this;
+
+
+
 	}
 	
 	// Update is called once per frame

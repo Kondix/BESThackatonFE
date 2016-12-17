@@ -9,13 +9,16 @@ public class MasterElementsLoader : MonoBehaviour {
     
     void Awake()
     {
-        SceneManager.LoadScene("CommonElements", LoadSceneMode.Additive);          
+        if (FindObjectsOfType<CommonElements>().Length < 1)
+        {
+            SceneManager.LoadScene("CommonElements", LoadSceneMode.Additive);
+        }
     }
     
 	// Use this for initialization
 	void Start () {
-        
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
