@@ -25,7 +25,6 @@ build/
 *_i.c
 *_p.c
 *.ilk
-*.meta
 *.obj
 *.pch
 *.pdb
@@ -157,4 +156,3 @@ $RECYCLE.BIN/
 .DS_Store
 /KitchenUber/Library
 /KitchenUber/Temp
-*.csproj
