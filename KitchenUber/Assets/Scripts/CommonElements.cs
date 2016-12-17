@@ -1,14 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CommonElements : MonoBehaviour {
 
     public static CommonElements instance;
     public GameObject mainUI;
     public GameObject camera;
-    public SpriteRenderer backgroundSpriteRenderer;
-
+    public Image backgroundImage;
+    
 	void Awake() {
         DontDestroyOnLoad(gameObject);
 
@@ -28,6 +29,6 @@ public class CommonElements : MonoBehaviour {
     }
     public void ChangeBackground(Sprite sprite)
     {
-        backgroundSpriteRenderer.sprite = sprite;
+        backgroundImage.sprite = sprite;
     }
 }

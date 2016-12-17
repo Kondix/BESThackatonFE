@@ -7,11 +7,13 @@ public class StartPanel : MonoBehaviour {
 
     public GameObject startPanel;
     public GameObject yourProfile;
+    public Sprite startPanelSprite;
+    public Sprite yourProfileSprite;
 
          
 	// Use this for initialization
 	void Start () {
-		
+            CommonElements.instance.ChangeBackground(startPanelSprite);
 	}
 	
 	// Update is called once per frame
@@ -24,6 +26,7 @@ public class StartPanel : MonoBehaviour {
     {
         startPanel.SetActive(false);
         yourProfile.SetActive(true);
+        CommonElements.instance.ChangeBackground(yourProfileSprite);
     }
     public void CookingButtonMethon()
     {
