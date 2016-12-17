@@ -17,7 +17,7 @@ public class CommonElements : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
     public CommonElements GetInstance()
     {
