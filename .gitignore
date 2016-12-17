@@ -156,3 +156,4 @@ $RECYCLE.BIN/
 .DS_Store
 /KitchenUber/Library
 /KitchenUber/Temp
+*.csproj
