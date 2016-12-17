@@ -31,7 +31,7 @@ public class StartPanel : MonoBehaviour {
     }
     public void HungryButtonMethod()
     {
-
+        SceneManager.LoadScene("ImHungry");     
     }
 
 

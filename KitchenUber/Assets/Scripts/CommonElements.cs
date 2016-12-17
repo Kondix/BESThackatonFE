@@ -7,6 +7,7 @@ public class CommonElements : MonoBehaviour {
     public static CommonElements instance;
     public GameObject mainUI;
     public GameObject camera;
+    public SpriteRenderer backgroundSpriteRenderer;
 
 	void Awake() {
         DontDestroyOnLoad(gameObject);
@@ -24,5 +25,9 @@ public class CommonElements : MonoBehaviour {
         if (!instance)
             instance = this;
         return instance;
+    }
+    public void ChangeBackground(Sprite sprite)
+    {
+        backgroundSpriteRenderer.sprite = sprite;
     }
 }
