@@ -107,7 +107,7 @@ public class ImHungry : MonoBehaviour
 
     public IEnumerator LoadOffersNextFrame()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSecondsRealtime(1.5f);
         CreateOffers();
 
     }
@@ -132,7 +132,7 @@ public class ImHungry : MonoBehaviour
             generatedOffers.Add(offer);
             offer.SetActive(false);
         }
-
+        offerOrigin = generatedOffers[activeOfferNumber];
         generatedOffers[activeOfferNumber].SetActive(true);
     }
     public class ImHungryMenuConnector : Connector
