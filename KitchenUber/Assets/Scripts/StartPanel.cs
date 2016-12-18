@@ -39,7 +39,8 @@ public class StartPanel : MonoBehaviour {
     }
     public void HungryButtonMethod()
     {
-        SceneManager.LoadScene("ImHungry");     
+        SceneManager.LoadScene("ImHungry");
+        CommonElements.instance.ChangeBackground(yourProfileSprite);
     }
     public void DatChatRoom()
     {
