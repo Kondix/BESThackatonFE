@@ -14,12 +14,15 @@ public class ImHungry : MonoBehaviour
     InputField inpSearch;
     [SerializeField]
     GameObject offerPrefab;
+    [SerializeField]
+    GameObject detailedPanel;
 
 
     void Start()
     {
         searchToggle[0].isOn = true;
         searchToggle[1].isOn = false;
+        detailedPanel.SetActive(false);
     }
     public void OnChangeToggle(int j)
     {
@@ -42,9 +45,16 @@ public class ImHungry : MonoBehaviour
             inpSearch.text = null;
     }
 
-    public void MoveBTN()
+    public void MoveBTN(bool right)
     {
+        if(right)
+        {
 
+        }
+        else
+        {
+
+        }
     }
     public void BackBTN()
     {
@@ -54,8 +64,16 @@ public class ImHungry : MonoBehaviour
     {
 
     }
-    public void SearchInBase()
+    public void DetailsBTN()
     {
-
+        detailedPanel.SetActive(true);
+    }
+    public void BackDetBTN()
+    {
+        detailedPanel.SetActive(false);
+    }
+    public void SearchInBase(string search)
+    {
+        search = inpSearch.text;
     }
 }
