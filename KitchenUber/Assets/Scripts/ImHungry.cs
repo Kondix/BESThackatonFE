@@ -32,6 +32,12 @@ public class ImHungry : MonoBehaviour
         searchToggle[1].isOn = false;
         detailedPanel.SetActive(false);
     }
+
+    void Update()
+    {
+        leftBTN.gameObject.SetActive(generatedOffers.Count != 0);
+        rightBTN.gameObject.SetActive(generatedOffers.Count != 0);
+    }
     public void OnChangeToggle(int j)
     {
         if(j ==1 && searchToggle[1].isOn)
@@ -114,8 +120,13 @@ public class ImHungry : MonoBehaviour
     public void CreateOffers()
     {
         Vector3 originPosition = offerOrigin.transform.localPosition;
-        Transform parentTransform = offerOrigin.transform.parent;;
-
+        Transform parentTransform = offerOrigin.transform.parent;
+        activeOfferNumber = 0;
+        foreach (GameObject generatedOffer in generatedOffers)
+        {
+            Destroy(generatedOffer);
+        }
+        generatedOffers.Clear();
         CommonElements common = CommonElements.instance;
 
         foreach (Connector.JsonData.Room room in common.lastJsonDataWrapper.jsonDatas[0].ROOMS)
