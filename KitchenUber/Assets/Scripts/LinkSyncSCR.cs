@@ -11,7 +11,6 @@ public class LinkSyncSCR : MonoBehaviour
     string ipAddress = "192.168.140.101";
     int port = 1236;
 
-
     void Start()
     {
         //Debug.Log(connector.fnConnectResult(ipAddress, port));

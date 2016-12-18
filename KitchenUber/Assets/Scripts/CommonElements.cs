@@ -10,7 +10,16 @@ public class CommonElements : MonoBehaviour {
     public GameObject camera;
     public Image backgroundImage;
     public bool isLoggedIn;
+
+    [HideInInspector]
+    public Connector.JsonData lastJsonData;
+
+    [HideInInspector]
+    public Connector.JsonDataWrapper lastJsonDataWrapper;
     
+
+    public List<string> userNames = new List<string>();
+    public List<Sprite> facesList = new List<Sprite>();
 	void Awake() {
         DontDestroyOnLoad(gameObject);
 
