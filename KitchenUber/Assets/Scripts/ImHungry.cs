@@ -1,8 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class ImHungry : MonoBehaviour
 {
@@ -17,6 +21,10 @@ public class ImHungry : MonoBehaviour
     [SerializeField]
     GameObject detailedPanel;
 
+    public GameObject offerOrigin;
+
+    private List<GameObject> generatedOffers = new List<GameObject>();
+    private int activeOfferNumber = 0;
 
     void Start()
     {
@@ -26,9 +34,9 @@ public class ImHungry : MonoBehaviour
     }
     public void OnChangeToggle(int j)
     {
-        if(j== 1 && searchToggle[1].isOn)
+        if(j ==1 && searchToggle[1].isOn)
         {
-            print("JEB");
+            CreateAvlRequest();
         }
 
         for (int i = 0; i < searchToggle.Length; i++)
@@ -49,14 +57,19 @@ public class ImHungry : MonoBehaviour
     }
     public void MoveBTN(bool right)
     {
-        if(right)
-        {
+        activeOfferNumber += right ? 1 : -1;
 
-        }
-        else
-        {
+        if (activeOfferNumber > generatedOffers.Count - 1)
+            activeOfferNumber = 0;
+        if (activeOfferNumber < 0)
+            activeOfferNumber = generatedOffers.Count - 1;
 
+        foreach (GameObject generatedOffer in generatedOffers)
+        {
+            generatedOffer.SetActive(false);
         }
+        generatedOffers[activeOfferNumber].SetActive(true);
+
     }
     public void BackBTN()
     {
@@ -74,13 +87,121 @@ public class ImHungry : MonoBehaviour
     {
         detailedPanel.SetActive(false);
     }
-    public void SearchInBase(string search)
+    public void SearchInBase()
     {
-        search = inpSearch.text;
+        CreatSpeceAvlRequest(inpSearch.text);
     }
 
-    //public class ImHungryMenuConnector : Connector
-    //{
+    public void CreateAvlRequest()
+    {
+        ImHungryMenuConnector connector = new ImHungryMenuConnector();
+        connector.fnConnectResult();
+        StartCoroutine(LoadOffersNextFrame());
+    }
+    public void CreatSpeceAvlRequest(string descriptionTXT)
+    {
+        ImHungryMenuConnector connector = new ImHungryMenuConnector();
+        connector.fnConnectResult(descriptionTXT);
+        StartCoroutine(LoadOffersNextFrame());
+    }
+
+    public IEnumerator LoadOffersNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        CreateOffers();
+
+    }
+    public void CreateOffers()
+    {
+        Vector3 originPosition = offerOrigin.transform.localPosition;
+        Transform parentTransform = offerOrigin.transform.parent;;
+
+        CommonElements common = CommonElements.instance;
+
+        foreach (Connector.JsonData.Room room in common.lastJsonDataWrapper.jsonDatas[0].ROOMS)
+        {
+            GameObject offer = Instantiate(offerPrefab, originPosition, Quaternion.identity) as GameObject;
+            offer.transform.SetParent(parentTransform, false);
+
+            OfferPanel offerPanel = offer.GetComponent<OfferPanel>();
+            offerPanel.title.text = room.title;
+            offerPanel.actualUsers.text = Random.Range(1, Int32.Parse(room.maxUsr)) + "/" + room.maxUsr;
+            offerPanel.userName.text = CommonElements.instance.userNames[Int32.Parse(room.hID)-1];
+            offerPanel.backImage.sprite = CommonElements.instance.facesList[Int32.Parse(room.hID)-1];
+            offerPanel.description.text = room.descr;
+            generatedOffers.Add(offer);
+            offer.SetActive(false);
+        }
+
+        generatedOffers[activeOfferNumber].SetActive(true);
+    }
+    public class ImHungryMenuConnector : Connector
+    {
+        public string fnConnectResult(string t_descr)
+        {
+            try
+            {
+                if (client == null || !client.Connected)
+                {
+                    client = new TcpClient(NetIP, PORT_NUM);
+                }
+                client.GetStream().BeginRead(readBuffer, 0, READ_BUFFER_SIZE, new AsyncCallback(DoRead), null);
+                SendSpecAvlRequest( t_descr);
+                return "Connection Succeeded";
+            }
+            catch (Exception ex)
+            {
+                return "Server is not active.  Please start server and try again.      " + ex.ToString();
+            }
+        }
+        public string fnConnectResult()
+        {
+            try
+            {
+                if (client == null || !client.Connected)
+                {
+                    client = new TcpClient(NetIP, PORT_NUM);
+                }
+                client.GetStream().BeginRead(readBuffer, 0, READ_BUFFER_SIZE, new AsyncCallback(DoRead), null);
+                SendAvlRequest();
+                return "Connection Succeeded";
+            }
+            catch (Exception ex)
+            {
+                return "Server is not active.  Please start server and try again.      " + ex.ToString();
+            }
+        }
+        public void SendSpecAvlRequest(string t_descr)
+        {
+            string jsonString = JsonUtility.ToJson(new SpecAvlRequest(t_descr));
+            SendData(jsonString);
+        }
+        public void SendAvlRequest()
+        {
+            string jsonString = JsonUtility.ToJson(new AvlRequest());
+            SendData(jsonString);
+        }
+        public class AvlRequest
+        {
+           
+            public string ID;
+            public AvlRequest()
+            {
+                ID = "AVL";
+               
+            }
+        }
+        public class SpecAvlRequest
+        {
         
-    //}
+            public string ID;
+            public string descr;
+
+            public SpecAvlRequest(string t_descr)
+            {
+                ID = "SPEC_AVL";
+                descr = t_descr;
+            }
+        }
+    }
 }

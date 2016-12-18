@@ -167,6 +167,12 @@ public void AddNewIng()
             string jsonString = JsonUtility.ToJson(new Invitation(t_title, t_hID, t_descr, t_hLVL, t_maxUsr));
             SendData(jsonString);
         }
+        public void SendRoomRequest(string t_rid, string t_hID)
+        {
+            string jsonString = JsonUtility.ToJson(new RoomRequest(t_rid, t_hID));
+            SendData(jsonString);
+        }
+
 
         public class Invitation
         {
@@ -184,6 +190,22 @@ public void AddNewIng()
                 descr = t_descr;
                 hLVL = t_hLVL;
                 maxUsr = t_maxUsr;
+            }
+        }
+
+        public class RoomRequest
+        {
+            public string rID;
+            public string usr1;
+            public string usr2;
+            public string usr3; 
+            public string usr4;
+            public string usr5;
+
+            public RoomRequest(string t_rid, string t_usr1)
+            {
+                rID = t_rid;
+                usr1 = t_usr1;
             }
         }
 

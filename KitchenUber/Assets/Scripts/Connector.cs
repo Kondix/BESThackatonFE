@@ -110,21 +110,21 @@ public class Connector
     }
 
     // Process the command received from the server, and take appropriate action.
-    public void ProcessCommands(string strMessage)
+    public virtual void ProcessCommands(string strMessage)
     {
         Debug.Log(strMessage);
         if (strMessage.StartsWith("["))
         {
             strMessage = strMessage.Insert(0, "\"jsonDatas\":");
             JsonDataWrapper jsonDataWrapper = JsonUtility.FromJson<JsonDataWrapper>("{" + strMessage + "}");
-
+            CommonElements.instance.lastJsonDataWrapper = jsonDataWrapper;
             Debug.Log("DZIALAM KURWA   " + jsonDataWrapper.jsonDatas[0].ID);
         }
         else
         {
             JsonData jsonData = JsonUtility.FromJson<JsonData>(strMessage);
-
-            Debug.Log("DZIALAM KURWA   " + jsonData.ID);
+            CommonElements.instance.lastJsonData = jsonData;
+            Debug.Log("DZIALAM KURWA   " + jsonData.rID);
         }
         //if (strMessage.StartsWith("{"))
         //{
@@ -174,6 +174,7 @@ public class Connector
     {
         public List<Room> ROOMS;
         public string ID;
+        public string rID;
 
         [Serializable]
         public struct Room
@@ -181,6 +182,8 @@ public class Connector
             public string hLVL;
             public string title;
             public string hID;
+            public string maxUsr;
+            public string descr;
 
         }
     }
