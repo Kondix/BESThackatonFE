@@ -118,13 +118,13 @@ public class Connector
             strMessage = strMessage.Insert(0, "\"jsonDatas\":");
             JsonDataWrapper jsonDataWrapper = JsonUtility.FromJson<JsonDataWrapper>("{" + strMessage + "}");
             CommonElements.instance.lastJsonDataWrapper = jsonDataWrapper;
-            Debug.Log("DZIALAM KURWA   " + jsonDataWrapper.jsonDatas[0].ID);
+            Debug.Log("Got requestID  " + jsonDataWrapper.jsonDatas[0].ID);
         }
         else
         {
             JsonData jsonData = JsonUtility.FromJson<JsonData>(strMessage);
             CommonElements.instance.lastJsonData = jsonData;
-            Debug.Log("DZIALAM KURWA   " + jsonData.rID);
+            Debug.Log("Got requestID   " + jsonData.ID);
         }
         //if (strMessage.StartsWith("{"))
         //{
