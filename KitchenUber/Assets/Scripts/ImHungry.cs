@@ -26,8 +26,6 @@ public class ImHungry : MonoBehaviour
     }
     public void OnChangeToggle(int j)
     {
-
-
         for (int i = 0; i < searchToggle.Length; i++)
         {
             if (j != i)
@@ -77,8 +75,29 @@ public class ImHungry : MonoBehaviour
         search = inpSearch.text;
     }
 
-    //public class ImHungryMenuConnector : Connector
-    //{
-        
-    //}
+    public class ImHungryMenuConnector : Connector
+    {
+        public class AvlRequest
+        {
+           
+            public string ID;
+            public AvlRequest(string t_title, string t_hID, string t_descr, string t_hLVL, string t_maxUsr)
+            {
+                ID = "AVL";
+               
+            }
+        }
+        public class SpecAvlRequest
+        {
+            
+            public string ID;
+            public string descr;
+
+            public SpecAvlRequest(string t_descr)
+            {
+                ID = "SPEC_AVL";
+                descr = t_descr;
+            }
+        }
+    }
 }
