@@ -76,4 +76,9 @@ public class ImHungry : MonoBehaviour
     {
         search = inpSearch.text;
     }
+
+    //public class ImHungryMenuConnector : Connector
+    //{
+        
+    //}
 }

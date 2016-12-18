@@ -9,7 +9,7 @@ public class LinkSyncSCR : MonoBehaviour
     string lastMessage;
     //public Transform PlayerCoord;
     string ipAddress = "192.168.140.101";
-    int port = 1235;
+    int port = 1236;
 
 
     void Start()
@@ -24,17 +24,17 @@ public class LinkSyncSCR : MonoBehaviour
     void Update()
     {
       //  Debug.Log(connector.strMessage);
-        Debug.Log(connector.fnConnectResult(ipAddress, port));
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
+        //Debug.Log(connector.fnConnectResult(ipAddress, port));
+        //if (Input.GetKeyUp(KeyCode.Space))
+        //{
 
-            //connector.ProcessCommands(connector.tempString);
-            Debug.Log(connector.fnConnectResult(ipAddress, port));
-            if (connector.res != "")
-            {
-                Debug.Log(connector.res);
-            }
-        }
+        //    //connector.ProcessCommands(connector.tempString);
+        //    Debug.Log(connector.fnConnectResult(ipAddress, port));
+        //    if (connector.res != "")
+        //    {
+        //        Debug.Log(connector.res);
+        //    }
+        //}
         //if (test.strMessage != "JOIN")
         //{
         //    if (test.res != lastMessage)

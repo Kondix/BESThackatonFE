@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -23,7 +25,6 @@ public class CookingTodayMenu : MonoBehaviour
     GameObject ingPos;
     Button selectedIngredient = null;
 
- 
 
     void Update()
     {
@@ -129,10 +130,63 @@ public void AddNewIng()
         print(titleTXT);
         print(sizeTXT);
         print(descriptionTXT);
+        CreateRequest();
     }
     public void BackBTN()
     {
         SceneManager.LoadScene("MainScene");
+    }
+
+    public void CreateRequest()
+    {
+        CookingTodayMenuConnector connector = new CookingTodayMenuConnector();
+        connector.fnConnectResult(titleTXT, 4.ToString(), descriptionTXT, 3.ToString(), sizeTXT.ToString());
+    }
+    public class CookingTodayMenuConnector : Connector
+    {
+        public string fnConnectResult(string t_title, string t_hID, string t_descr, string t_hLVL, string t_maxUsr)
+        {
+            try
+            {
+                if (client == null || !client.Connected)
+                {
+                    client = new TcpClient(NetIP, PORT_NUM);
+                }
+                client.GetStream().BeginRead(readBuffer, 0, READ_BUFFER_SIZE, new AsyncCallback(DoRead), null);
+                SendInvitationRequest(t_title, t_hID, t_descr, t_hLVL, t_maxUsr);
+                return "Connection Succeeded";
+            }
+            catch (Exception ex)
+            {
+                return "Server is not active.  Please start server and try again.      " + ex.ToString();
+            }
+        }
+
+        public void SendInvitationRequest(string t_title, string t_hID, string t_descr, string t_hLVL, string t_maxUsr)
+        {
+            string jsonString = JsonUtility.ToJson(new Invitation(t_title, t_hID, t_descr, t_hLVL, t_maxUsr));
+            SendData(jsonString);
+        }
+
+        public class Invitation
+        {
+            public string title;
+            public string hID;
+            public string descr;
+            public string hLVL;
+            public string maxUsr;
+            public string ID;
+            public Invitation(string t_title, string t_hID, string t_descr, string t_hLVL, string t_maxUsr)
+            {
+                ID = "ADD";
+                title = t_title;
+                hID = t_hID;
+                descr = t_descr;
+                hLVL = t_hLVL;
+                maxUsr = t_maxUsr;
+            }
+        }
+
     }
 #endregion
 }

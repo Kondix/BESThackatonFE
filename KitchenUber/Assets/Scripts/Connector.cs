@@ -14,14 +14,15 @@ using UnityEngine;
 
 public class Connector
 {
-    const int READ_BUFFER_SIZE = 1024;
-    const int PORT_NUM = 1235;
-    private TcpClient client;
-    private byte[] readBuffer = new byte[READ_BUFFER_SIZE];
+    protected const int READ_BUFFER_SIZE = 1024;
+    protected const string NetIP = "192.168.140.101";
+    protected const int PORT_NUM = 1236;
+    protected TcpClient client;
+    protected byte[] readBuffer = new byte[READ_BUFFER_SIZE];
     public ArrayList lstUsers = new ArrayList();
     public string strMessage = string.Empty;
     public string res = String.Empty;
-    private string pUserName;
+    protected string pUserName;
 
     public string tempString ="{\"ID\":\"ADD\",\"ROOMS\":[{\"rID\":5,\"hLVL\":3,\"title\":\"Eskalopki\",\"hID\":2,\"descr\":\"mieso w ciescie\"}]}";
   
@@ -29,7 +30,11 @@ public class Connector
 
     public Connector() { }
 
-    public string fnConnectResult(string sNetIP, int iPORT_NUM)
+    public void CreateConnnection()
+    {
+        fnConnectResult("192.168.140.101", 1236);
+    }
+    public virtual string fnConnectResult(string sNetIP, int iPORT_NUM)
     {
         try
         {
@@ -75,7 +80,7 @@ public class Connector
     {
         
     }
-    private void DoRead(IAsyncResult ar)
+    public void DoRead(IAsyncResult ar)
     {
         int BytesRead;
         try
@@ -158,28 +163,30 @@ public class Connector
             lstUsers.Add(users[I]);
         }
     }
-}
 
-
-public class JsonDataWrapper
-{
-    public List<JsonData> jsonDatas;
-}
-
-[Serializable]
-public struct JsonData
-{
-    public List<Room> ROOMS;
-    public string ID;
+    public class JsonDataWrapper
+    {
+        public List<JsonData> jsonDatas;
+    }
 
     [Serializable]
-    public struct Room
+    public struct JsonData
     {
-        public string hlvl;
-        public string title;
-        public string hID;
+        public List<Room> ROOMS;
+        public string ID;
 
+        [Serializable]
+        public struct Room
+        {
+            public string hLVL;
+            public string title;
+            public string hID;
+
+        }
     }
 }
+
+
+
 
 
