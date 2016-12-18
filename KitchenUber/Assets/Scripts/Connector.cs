@@ -14,7 +14,7 @@ using UnityEngine;
 
 public class Connector
 {
-    protected const int READ_BUFFER_SIZE = 1024;
+    protected const int READ_BUFFER_SIZE = 2048;
     protected const string NetIP = "192.168.140.101";
     protected const int PORT_NUM = 1236;
     protected TcpClient client;
