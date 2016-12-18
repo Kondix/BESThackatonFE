@@ -9,6 +9,7 @@ public class StartPanel : MonoBehaviour {
     public GameObject yourProfile;
     public Sprite startPanelSprite;
     public Sprite yourProfileSprite;
+    public Sprite thirdBG;
 
          
 	// Use this for initialization
@@ -30,7 +31,7 @@ public class StartPanel : MonoBehaviour {
         startPanel.SetActive(false);
         yourProfile.SetActive(true);
         CommonElements.instance.isLoggedIn = true;
-        CommonElements.instance.ChangeBackground(yourProfileSprite);
+        CommonElements.instance.ChangeBackground(thirdBG);
     }
     public void CookingButtonMethon()
     {
@@ -39,6 +40,10 @@ public class StartPanel : MonoBehaviour {
     public void HungryButtonMethod()
     {
         SceneManager.LoadScene("ImHungry");     
+    }
+    public void DatChatRoom()
+    {
+        SceneManager.LoadScene("ChatScene");
     }
 
 

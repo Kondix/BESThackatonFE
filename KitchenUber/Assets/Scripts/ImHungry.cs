@@ -26,9 +26,9 @@ public class ImHungry : MonoBehaviour
     }
     public void OnChangeToggle(int j)
     {
-        if(searchToggle[1].isOn)
+        if(j== 1 && searchToggle[1].isOn)
         {
-            //ZAPYTANIE O ZLOTY STRZAL
+            print("JEB");
         }
 
         for (int i = 0; i < searchToggle.Length; i++)
