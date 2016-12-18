@@ -35,7 +35,8 @@ public class StartPanel : MonoBehaviour {
     }
     public void CookingButtonMethon()
     {
-        SceneManager.LoadScene("CookingToday");     
+        SceneManager.LoadScene("CookingToday");
+        CommonElements.instance.ChangeBackground(yourProfileSprite);
     }
     public void HungryButtonMethod()
     {
