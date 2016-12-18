@@ -45,6 +45,7 @@ public class StartPanel : MonoBehaviour {
     public void DatChatRoom()
     {
         SceneManager.LoadScene("ChatScene");
+        CommonElements.instance.ChangeBackground(yourProfileSprite);
     }
 
 

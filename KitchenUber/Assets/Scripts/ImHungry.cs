@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
