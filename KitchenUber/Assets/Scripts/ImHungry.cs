@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class ImHungry : MonoBehaviour
 {
     [SerializeField]
-    Toggle[] searchToggle; // [0] - First Option [1] - Second Option
+    Toggle[] searchToggle; // [0] - Pod spodem [1] - Na gorze <- po zmianie wysyla zapytanie
     [SerializeField]
     Button contactBTN, singInBTN, leftBTN, rightBTN, backBTN;
     [SerializeField]
@@ -26,6 +26,11 @@ public class ImHungry : MonoBehaviour
     }
     public void OnChangeToggle(int j)
     {
+        if(searchToggle[1].isOn)
+        {
+            //ZAPYTANIE O ZLOTY STRZAL
+        }
+
         for (int i = 0; i < searchToggle.Length; i++)
         {
             if (j != i)
@@ -42,7 +47,6 @@ public class ImHungry : MonoBehaviour
         if (!inpSearch.interactable)
             inpSearch.text = null;
     }
-
     public void MoveBTN(bool right)
     {
         if(right)
@@ -89,7 +93,7 @@ public class ImHungry : MonoBehaviour
         }
         public class SpecAvlRequest
         {
-            
+        
             public string ID;
             public string descr;
 
